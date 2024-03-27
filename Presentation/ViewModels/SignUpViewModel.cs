@@ -30,8 +30,8 @@ public class SignUpViewModel
     [DataType(DataType.Password)]
     [Display(Name = "Password", Prompt = "Enter your Password", Order = 4)]
     [Required(ErrorMessage = "Password is required")]
-    [RegularExpression(@"^[^\s@]+@[^\s@]+\.[^\s@]{2,}$",
-        ErrorMessage = "Lösenordet måste innehålla minst en stor bokstav, en liten bokstav, ett nummer och ett specialtecken.")]
+    //[RegularExpression(@"^[^\s@]+@[^\s@]+\.[^\s@]{2,}$",
+    //    ErrorMessage = "Lösenordet måste innehålla minst en stor bokstav, en liten bokstav, ett nummer och ett specialtecken.")]
     public string Password { get; set; } = null!;
 
 
