@@ -10,18 +10,25 @@ namespace Presentation.Controllers
     {
 
         private readonly UserManager<UserEntity> _userManager;
+        private readonly SignInManager<UserEntity> _signInManager;
 
-        public AuthController(UserManager<UserEntity> userManager)
+        public AuthController(UserManager<UserEntity> userManager, SignInManager<UserEntity> signInManager = null)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
+        #region SIGN UP
+        [HttpGet]
+        [Route("/signup")]
         public IActionResult SignUp()
         {
             return View();
         }
 
+
         [HttpPost] //vid submit
+        [Route("/signup")]
         public async Task<IActionResult> SignUp(SignUpViewModel viewModel)
         {
             if (ModelState.IsValid)
@@ -51,6 +58,45 @@ namespace Presentation.Controllers
             }
             return View(viewModel);
         }
+
+        #endregion
+
+
+        [HttpGet]
+        [Route("/signin")]
+        public IActionResult SignIn(string returnUrl)
+        {
+            if (_signInManager.IsSignedIn(User))
+            {
+                return RedirectToAction("Details", "Account");
+            }
+
+            ViewData["ReturnUrl"] = returnUrl ?? Url.Content("~/");
+            return View();
+        }
+
+        [HttpPost]
+        [Route("/signin")]
+        public async Task<IActionResult> SignIn(SignInViewModel viewModel, string returnUrl)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(viewModel.Email, viewModel.Password, viewModel.RememberMe, false);
+                if (result.Succeeded)
+                {
+                    if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                        return RedirectToAction(returnUrl);
+
+                    return RedirectToAction("Details", "Account");
+                }
+            }
+
+            //om jej giltig
+            ModelState.AddModelError("fel värden", "fel email eller lösenord");
+            ViewData["ErrorMessage"] = "fel fel fel email eller lösen!";
+            return View(viewModel);
+        }
+
 
 
     }

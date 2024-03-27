@@ -170,20 +170,21 @@
 }
 */
 
-#signin {
+.signin {
     height: 100%;
 
 
 
     .container {
         width: 90%;
-        margin: 0 auto;
+
 
         form {
             display: grid;
             gap: 30px;
 
             .form-content {
+                color: pink;
                 grid-template-columns: 1fr;
                 grid-template-areas: "email" "password" "remember" "submit";
             }
@@ -234,6 +235,7 @@
 
         .container {
             width: 70%;
+            margin: 0 auto;
 
             form {
 
