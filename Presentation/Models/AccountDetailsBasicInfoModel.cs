@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Presentation.ViewModels;
+namespace Presentation.Models;
 
 public class AccountDetailsBasicInfoModel
 {

@@ -1,20 +1,26 @@
 ﻿using Infrastructure.Entities;
+using Infrastructure.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.ViewModels.Account;
 
 namespace Presentation.Controllers;
 
+
+[Authorize]
 public class AccountController : Controller
 {
 
     private readonly SignInManager<UserEntity> _signInManager;
     private readonly UserManager<UserEntity> _userManager;
+    private readonly AccountService _accountService;
 
-    public AccountController(SignInManager<UserEntity> signInManager, UserManager<UserEntity> userManager)
+    public AccountController(SignInManager<UserEntity> signInManager, UserManager<UserEntity> userManager, AccountService accountService = null)
     {
         _signInManager = signInManager;
         _userManager = userManager;
+        _accountService = accountService;
     }
 
 
@@ -25,16 +31,22 @@ public class AccountController : Controller
     [Route("/account/details")]
     public async Task<IActionResult> Details()
     {
-        if (!_signInManager.IsSignedIn(User))
-            return RedirectToAction("SignIn", "Auth");
+        //if (!_signInManager.IsSignedIn(User))
+        //    return RedirectToAction("SignIn", "Auth");
+
+        var userEntity = await _userManager.GetUserAsync(User);
 
         var viewModel = new AccountDetailsViewModel()
         {
-            //BasicInfo = await PopulateBasicInfo()
+            User = userEntity!
+
         };
         return View(viewModel);
 
     }
+
+
+
 
     [HttpPost]
     [Route("/account/details")]

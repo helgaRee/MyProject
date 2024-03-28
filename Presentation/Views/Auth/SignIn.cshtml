@@ -7,7 +7,7 @@
 <section class="signin">
     <div class="container">
 
-        <form method="post" asp-controller="Auth" asp-action="SignIn" novalidate>
+        <form method="post" asp-controller="Auth" asp-action="SignIn" asp-route-ReturnUrl="@ViewData["ReturnUrl"]" novalidate>
 
 
             @if (!string.IsNullOrEmpty(ViewData["ErrorMessage"]?.ToString()))
@@ -17,10 +17,10 @@
                 </div>
             }
 
+            <div class="form-content">
+
             <h1>Welcome Back</h1>
             <p>Don't have an account yet?<a asp-controller="Auth" asp-action="SignUp">Sign up here</a>.</p>
-
-            <div class="form-content">
 
                 <div id="form-email" class="input-group">
                     <label asp-for="Email"></label>

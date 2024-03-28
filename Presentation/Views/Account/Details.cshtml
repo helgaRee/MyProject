@@ -1,8 +1,9 @@
-﻿@using Presentation.ViewModels.Account
-@model AccountDetailsViewModel
+﻿@model AccountDetailsViewModel
+
+
 @{
 
-    ViewData["Title"] = $"{Model.ProfileInfo?.FirstName} {Model.ProfileInfo?.LastName}";
+    ViewData["Title"] = $"{Model.User.FirstName} {Model.User.LastName}";
 }
 
 <section class="account-details">
@@ -22,8 +23,8 @@
                     <img src="~/Images/icons/@Model.ProfileInfo?.ProfileImageUrl" alt="" />
                 </div>
                 <div class="profile-info">
-                    <h5>@Model.ProfileInfo?.FirstName @Model.ProfileInfo?.LastName</h5>
-                    <p>@Model.ProfileInfo?.Email</p>
+                    <h5>@Model.User.FirstName @Model.User.LastName</h5>
+                    <p>@Model.User.Email</p>
                 </div>
 
                 <button id="btn-details" type="button" class="btn-theme">Account Details</button>
@@ -34,11 +35,13 @@
                 </div>
             </div>
         </aside>
+
+
         <div class="account-information">
             <h1>Account Details</h1>
 
 
-            <form id="basicInfoForm" method="post" asp-action="Details" asp-controller="Account" novalidate>
+            <form id="basicInfoForm" method="post" asp-action="BasicInfo" asp-controller="Account" novalidate>
                 <h5>Basic Info</h5>
 
                 <div class="form-content">
