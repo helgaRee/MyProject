@@ -1,7 +1,6 @@
 ﻿using Infrastructure.Contexts;
 using Infrastructure.Entities;
 using Infrastructure.Factories;
-using Infrastructure.Migrations;
 using Infrastructure.Model;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;

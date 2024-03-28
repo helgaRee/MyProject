@@ -3,7 +3,7 @@
 
 @{
 
-    ViewData["Title"] = $"{Model.User.FirstName} {Model.User.LastName}";
+    ViewData["Title"] = $"{Model.BasicInfoForm.FirstName} {Model.BasicInfoForm.LastName}";
 }
 
 <section class="account-details">
@@ -20,11 +20,11 @@
         <aside>
             <div class="profile">
                 <div class="profile-info">
-                    <img src="~/Images/icons/@Model.ProfileInfo?.ProfileImageUrl" alt="" />
+                    <img src="~/Images/icons/Group2.svg" alt="" />
                 </div>
                 <div class="profile-info">
-                    <h5>@Model.User.FirstName @Model.User.LastName</h5>
-                    <p>@Model.User.Email</p>
+                    <h5>@Model.BasicInfoForm.FirstName @Model.BasicInfoForm.LastName</h5>
+                    <p>@Model.BasicInfoForm.Email</p>
                 </div>
 
                 <button id="btn-details" type="button" class="btn-theme">Account Details</button>
@@ -79,7 +79,7 @@
             </form>
 
 
-            <form id="addressInfoForm" method="post" asp-action="Details" asp-controller="Account" novalidate>
+            <form id="addressInfoForm" method="post" asp-action="SaveAddressInfo" asp-controller="Account" novalidate>
                 <h5>Address</h5>
                 <div class="form-content">
                     <div id="address-line-1" class="input-group">

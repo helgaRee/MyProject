@@ -1,4 +1,4 @@
-﻿using Infrastructure.Migrations;
+﻿
 using Infrastructure.Model;
 
 namespace Infrastructure.Factories;
