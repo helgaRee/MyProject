@@ -11,7 +11,8 @@ $gray-800:  #33354D;
 $gray-900:  #0B0F19;
 $black:     #000000;
 $danger:    #EF4444;
-$success:   #22C55E;
+$danger-bg: #F5D7DA; 
+$success: #22C55E;
 $warning:   #FFBA08;
 $info:      #4C82F7;
 
@@ -41,25 +42,26 @@ $theme-gradient-background: linear-gradient(-1deg, rgba(99, 101, 241, 0.10) 0%, 
 
 /*
     :root {
-        $gray-100: #F3F6FF;
-        $gray-200: #EFF2FC;
-        $gray-300: #E2E5F1;
-        $gray-400: #D4D7E5;
-        $gray-500: #B4B7C9;
-        $gray-600: #9397AD;
-        $gray-700: #565973;
-        $gray-800: #33354D;
-        $gray-900: #0B0F19;
+        --color-white: #F3F6FF;
+        --color-gray-100: #EFF2FC;
+        --color-gray-200: #E2E5F1;
+        --color-gray-300: #D4D7E5;
+        --color-gray-400: #B4B7C9;
+        --color-gray-500: #9397AD;
+        --color-gray-600: #565973;
+        --color-gray-700: #33354D;
+        --color-gray-800: #0B0F19;
         $white: #FFFFFF;
         $gray: #EFF2FC;
         $theme: #6366F1;
         $black: #000000;
-        $danger: #F5D7DA;
-        $danger-dark: #e57e88;
-        $success: #bcf7d2;
-        $warning: #ffe8ad;
-        $info: #cfdefd;
-        $transparent: transparent;
+        --color-danger: #F5D7DA;
+       --color-danger-bg: #F5D7DA
+        --color-danger-dark: #e57e88;
+        --color-success: #bcf7d2;
+        --color-warning: #ffe8ad;
+        --color-info: #cfdefd;
+        --color-transparent: transparent;
 
     }
 
