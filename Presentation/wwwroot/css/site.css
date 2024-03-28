@@ -1,25 +1,26 @@
 ﻿@charset "UTF-8";
 /*
     :root {
-        $gray-100: #F3F6FF;
-        $gray-200: #EFF2FC;
-        $gray-300: #E2E5F1;
-        $gray-400: #D4D7E5;
-        $gray-500: #B4B7C9;
-        $gray-600: #9397AD;
-        $gray-700: #565973;
-        $gray-800: #33354D;
-        $gray-900: #0B0F19;
+        --color-white: #F3F6FF;
+        --color-gray-100: #EFF2FC;
+        --color-gray-200: #E2E5F1;
+        --color-gray-300: #D4D7E5;
+        --color-gray-400: #B4B7C9;
+        --color-gray-500: #9397AD;
+        --color-gray-600: #565973;
+        --color-gray-700: #33354D;
+        --color-gray-800: #0B0F19;
         $white: #FFFFFF;
         $gray: #EFF2FC;
         $theme: #6366F1;
         $black: #000000;
-        $danger: #F5D7DA;
-        $danger-dark: #e57e88;
-        $success: #bcf7d2;
-        $warning: #ffe8ad;
-        $info: #cfdefd;
-        $transparent: transparent;
+        --color-danger: #F5D7DA;
+       --color-danger-bg: #F5D7DA
+        --color-danger-dark: #e57e88;
+        --color-success: #bcf7d2;
+        --color-warning: #ffe8ad;
+        --color-info: #cfdefd;
+        --color-transparent: transparent;
 
     }
 
@@ -477,6 +478,53 @@ form input[type=checkbox] {
   height: 50px;
   width: 20px;
   margin: 0;
+}
+
+form {
+  width: 100%;
+  display: grid;
+  font-size: 16px;
+  font-weight: 400;
+}
+form .input-group {
+  display: grid;
+}
+form .checkbox-group input[type=checkbox] {
+  margin-right: 10px;
+}
+form .checkbox-group .input-group {
+  display: flex;
+  align-items: center;
+}
+form input {
+  font-size: 16px;
+  font-weight: 400 !important;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid #D4D7E5;
+}
+form input::placeholder {
+  opacity: 0.5;
+}
+form input[type=checkbox] {
+  height: 20px;
+  width: 20px;
+  margin: 0;
+}
+form button {
+  font-size: 16px;
+  font-weight: 400 !important;
+  width: 100%;
+}
+
+.alert {
+  background: #F5D7DA;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 40px;
 }
 
 header {
@@ -1597,170 +1645,113 @@ button {
   height: 100%;
 }
 .signin .container {
-  width: 90%;
+  width: 95%;
 }
-.signin .container form {
+.signin .container .form-content {
   display: grid;
-  gap: 30px;
-}
-.signin .container form .form-content {
-  color: pink;
+  justify-content: center;
   grid-template-columns: 1fr;
   grid-template-areas: "email" "password" "remember" "submit";
 }
-.signin .container form .input-group {
+.signin .container .input-group {
   margin-bottom: 20px;
 }
-.signin .container form .input-group label {
+.signin .container .input-group label {
   padding: 3px;
 }
-.signin .container form .checkbox-group {
+.signin .container .checkbox-group {
   margin-top: 30px;
   margin-bottom: 50px;
 }
-.signin .container form #email {
+.signin .container #email {
   grid-area: email;
 }
-.signin .container form #password {
+.signin .container #password {
   grid-area: password;
 }
-.signin .container form #btn-submit {
+.signin .container #btn-submit {
   grid-area: submit;
 }
-.signin .container form #rememberMe {
+.signin .container #rememberMe {
   grid-area: rememberMe;
 }
-.signin .container form #form-submit {
+.signin .container #form-submit {
   width: 100%;
 }
 
 @media (min-width: 576px) {
-  #signin {
+  .signin {
     margin-top: 30px;
   }
-  #signin .container {
+  .signin .container {
     width: 70%;
     margin: 0 auto;
   }
-  #signin .container form .input-group {
+  .signin .container form .input-group {
     margin-bottom: 20px;
   }
-  #signin .container form .input-group label {
+  .signin .container form .input-group label {
     padding: 3px;
   }
-  #signin .container form .checkbox-group {
+  .signin .container form .checkbox-group {
     margin-top: 30px;
     margin-bottom: 50px;
   }
 }
 @media (min-width: 768px) {
-  #signin {
+  .signin {
     margin-top: 30px;
   }
-  #signin .container {
+  .signin .container {
     width: 50%;
   }
-  #signin .container form .input-group {
+  .signin .container form .input-group {
     margin-bottom: 20px;
   }
-  #signin .container form .input-group label {
+  .signin .container form .input-group label {
     padding: 3px;
   }
-  #signin .container form .checkbox-group {
+  .signin .container form .checkbox-group {
     margin-top: 30px;
     margin-bottom: 50px;
   }
 }
 @media (min-width: 992px) {
-  #signin {
+  .signin {
     margin-top: 30px;
   }
-  #signin .container {
+  .signin .container {
     width: 45%;
   }
-  #signin .container form .input-group {
+  .signin .container form .input-group {
     margin-bottom: 20px;
   }
-  #signin .container form .input-group label {
+  .signin .container form .input-group label {
     padding: 3px;
   }
-  #signin .container form .checkbox-group {
+  .signin .container form .checkbox-group {
     margin-top: 30px;
     margin-bottom: 50px;
   }
 }
 @media (min-width: 1200px) {
-  #signin {
+  .signin {
     margin-top: 30px;
   }
-  #signin .container {
+  .signin .container {
     width: 45%;
   }
-  #signin .container form .input-group {
+  .signin .container form .input-group {
     margin-bottom: 20px;
   }
-  #signin .container form .input-group label {
+  .signin .container form .input-group label {
     padding: 3px;
   }
-  #signin .container form .checkbox-group {
+  .signin .container form .checkbox-group {
     margin-top: 30px;
     margin-bottom: 50px;
   }
 }
-/*
-.signup {
-    margin-top: 30px;
-
-    .container {
-        width: 95%;
-
-        form {
-
-
-            .input-group {
-                label {
-                    padding: 5px;
-                }
-
-                margin-bottom: 20px;
-            }
-
-            .checkbox-group {
-                margin-top: 20px;
-                margin-bottom: 20px;
-            }
-        }
-    }
-}
-
-@media (min-width: 992px) {
-
-    .signup {
-        margin-top: 30px;
-
-        .container {
-            width: 45%;
-
-            form {
-
-
-                .input-group {
-                    label {
-                        padding: 5px;
-                    }
-
-                    margin-bottom: 20px;
-                }
-
-                .checkbox-group {
-                    margin-top: 20px;
-                    margin-bottom: 20px;
-                }
-            }
-        }
-    }
-
-}*/
 .signup {
   height: 100%;
 }

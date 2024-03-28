@@ -176,61 +176,62 @@
 
 
     .container {
-        width: 90%;
+        width: 95%;
 
 
         form {
+        }
+
+        .form-content {
+
             display: grid;
-            gap: 30px;
+            justify-content: center;           
+            grid-template-columns: 1fr;
+            grid-template-areas: "email" "password" "remember" "submit";
+        }
 
-            .form-content {
-                color: pink;
-                grid-template-columns: 1fr;
-                grid-template-areas: "email" "password" "remember" "submit";
+        .input-group {
+            label {
+                padding: 3px;
             }
 
-            .input-group {
-                label {
-                    padding: 3px;
-                }
+            margin-bottom: 20px;
+        }
 
-                margin-bottom: 20px;
-            }
-
-            .checkbox-group {
-                margin-top: 30px;
-                margin-bottom: 50px;
-            }
+        .checkbox-group {
+            margin-top: 30px;
+            margin-bottom: 50px;
+        }
 
 
-            #email {
-                grid-area: email;
-            }
+        #email {
+            grid-area: email;
+        }
 
-            #password {
-                grid-area: password;
-            }
+        #password {
+            grid-area: password;
+        }
 
-            #btn-submit {
-                grid-area: submit;
-            }
+        #btn-submit {
+            grid-area: submit;
+        }
 
-            #rememberMe {
-                grid-area: rememberMe;
-            }
+        #rememberMe {
+            grid-area: rememberMe;
+        }
 
-           #form-submit {
-                width: 100%;
-            }
+        #form-submit {
+            width: 100%;
         }
     }
 }
 
 
 
+
 @media (min-width: 576px) {
 
-    #signin {
+    .signin {
         margin-top: 30px;
 
         .container {
@@ -238,6 +239,8 @@
             margin: 0 auto;
 
             form {
+
+
 
                 .input-group {
 
@@ -259,13 +262,14 @@
 
 @media (min-width: 768px) {
 
-    #signin {
+    .signin {
         margin-top: 30px;
 
         .container {
             width: 50%;
 
             form {
+
 
                 .input-group {
 
@@ -287,13 +291,14 @@
 
 @media (min-width: 992px) {
 
-    #signin {
+    .signin {
         margin-top: 30px;
 
         .container {
             width: 45%;
 
             form {
+
 
                 .input-group {
 
@@ -315,7 +320,7 @@
 
 @media (min-width: 1200px) {
 
-    #signin {
+    .signin {
         margin-top: 30px;
 
         .container {
