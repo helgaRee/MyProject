@@ -19,6 +19,9 @@ public class DataContext(DbContextOptions<DataContext> options) : IdentityDbCont
     //anger detta för att lösa problem vid skapandet av ny migration
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        base.OnModelCreating(builder);
+
+
 
         builder.Entity<CourseEntity>()
             .Property(c => c.DiscountPrice)

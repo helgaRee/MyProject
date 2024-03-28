@@ -1,7 +1,7 @@
 ﻿using Infrastructure.Helpers;
 using System.ComponentModel.DataAnnotations;
 
-namespace Presentation.ViewModels;
+namespace Presentation.ViewModels.Authentication;
 
 public class SignUpViewModel
 {
