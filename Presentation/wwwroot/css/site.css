@@ -1844,25 +1844,26 @@ button {
     padding: 3px;
   }
 }
-.account-details .container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  grid-template-areas: "aside basic" "aside address";
+.account-details h1 {
+  text-align: center;
 }
 .account-details .container aside {
+  text-align: center;
   grid-area: aside;
   margin: 0 auto;
-  border-right: 1px solid gray;
-  padding-right: 7rem;
 }
 .account-details .container aside button {
   margin-bottom: 1rem;
+  margin: 0 auto;
 }
 .account-details .container aside .settings {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin-block: 1rem;
+}
+.account-details .container .account-information #form-headline {
+  grid-area: headline;
 }
 .account-details .container .account-information #basicInfoForm {
   grid-area: basic;
@@ -1870,7 +1871,12 @@ button {
 .account-details .container .account-information #basicInfoForm .form-content {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-areas: "firstname" "lastname" "email" "phone" "biography" "cancel" "submit";
+  grid-template-areas: "headline" "firstname" "lastname" "email" "phone" "biography" "submit" "cancel";
+  width: 62.1%;
+  margin: 0 auto;
+}
+.account-details .container .account-information #basicInfoForm .form-content .input-group {
+  margin-bottom: 1rem;
 }
 .account-details .container .account-information #basicInfoForm .form-content #firstname {
   grid-area: firstname;
@@ -1892,15 +1898,25 @@ button {
 }
 .account-details .container .account-information #basicInfoForm .form-content #btn-cancel {
   grid-area: cancel;
-  margin-bottom: 20px;
+}
+.account-details .container .account-information #basicInfoForm .form-content textarea {
+  height: 8rem;
 }
 .account-details .container .account-information #addressInfoForm {
   grid-area: address;
 }
+.account-details .container .account-information #addressInfoForm #form-headline {
+  grid-area: headline;
+}
 .account-details .container .account-information #addressInfoForm .form-content {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-areas: "address1" "address2" "postalcode" "city" "cancel" "submit";
+  grid-template-areas: "headline" "address1" "address2" "postalcode" "city" "cancel" "submit";
+  width: 62.1%;
+  margin: 0 auto;
+}
+.account-details .container .account-information #addressInfoForm .form-content .input-group {
+  margin-bottom: 1rem;
 }
 .account-details .container .account-information #addressInfoForm .form-content #address-line-1 {
   grid-area: address1;
@@ -1923,70 +1939,88 @@ button {
 
 .details-buttons {
   margin-top: 20px;
-  display: flex;
   gap: 10px;
-  flex-direction: column;
+  width: 100%;
+  margin: 0 auto;
 }
 
 @media (min-width: 768px) {
+  .account-details .container {
+    margin-top: 2rem;
+  }
+  .account-details .container .account-information #basic-info h5 {
+    color: pink;
+  }
   .account-details .container .account-information #basic-info .form-content {
-    display: grid;
+    margin-top: 10rem;
     gap: 30px;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas: "firstname lastname" "email phone" "biography biography" "cancel submit";
-  }
-  .account-details .container .account-information #basic-info .form-content #firstname {
-    grid-area: firstname;
-  }
-  .account-details .container .account-information #basic-info .form-content #lastname {
-    grid-area: lastname;
-  }
-  .account-details .container .account-information #basic-info .form-content #email {
-    grid-area: email;
-  }
-  .account-details .container .account-information #basic-info .form-content #phone {
-    grid-area: phone;
-  }
-  .account-details .container .account-information #basic-info .form-content #biography {
-    grid-area: biography;
-  }
-  .account-details .container .account-information #basic-info .form-content #btn-cancel {
-    grid-area: cancel;
-  }
-  .account-details .container .account-information #basic-info .form-content #btn-submit {
-    grid-area: submit;
   }
   .account-details .container .account-information #address-info .form-content {
-    display: grid;
     gap: 30px;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas: "address1 address1" "address2 address2" "postalcode city" "cancel submit";
-  }
-  .account-details .container .account-information #address-info .form-content #address-line-1 {
-    grid-area: address1;
-  }
-  .account-details .container .account-information #address-info .form-content #address-line-2 {
-    grid-area: address2;
-  }
-  .account-details .container .account-information #address-info .form-content #postalcode {
-    grid-area: postalcode;
-  }
-  .account-details .container .account-information #address-info .form-content #city {
-    grid-area: city;
-  }
-  .account-details .container .account-information #address-info .form-content #btn-cancel {
-    grid-area: cancel;
-  }
-  .account-details .container .account-information #address-info .form-content #btn-submit {
-    grid-area: submit;
+    display: grid;
   }
   .details-buttons {
     margin-top: 20px;
-    display: flex;
-    gap: 10px;
-    flex-direction: row;
   }
 }
+@media (min-width: 992px) {
+  .account-details .container {
+    width: 63%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: "aside basic" "aside address";
+  }
+  .account-details .container aside {
+    grid-area: aside;
+    margin: 0 auto;
+    border-right: 1px solid gray;
+    padding-right: 7rem;
+  }
+  .account-details .container aside button {
+    margin-bottom: 1rem;
+  }
+  .account-details .container aside .settings {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .account-details .container .account-information #basicInfoForm {
+    grid-area: basic;
+  }
+  .account-details .container .account-information #basicInfoForm .form-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "headline headline" "firstname lastname" "email phone" "biography biography" "cancel submit";
+    gap: 1rem;
+  }
+  .account-details .container .account-information #basicInfoForm .form-content .input-group {
+    margin-bottom: 1rem;
+  }
+  .account-details .container .account-information #addressInfoForm {
+    grid-area: address;
+  }
+  .account-details .container .account-information #addressInfoForm .form-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "headline headline" "address1 address2" "postalcode city" "cancel submit";
+    gap: 1rem;
+  }
+  .account-details .container .account-information #addressInfoForm .form-content .input-group {
+    margin-bottom: 1rem;
+  }
+  .details-buttons {
+    margin-top: 20px;
+    gap: 10px;
+  }
+}
+.field-validation-error {
+  color: #EF4444;
+  font-size: 0.9rem;
+  padding-block: 0.15rem;
+}
+
 .error-404 .container {
   display: flex;
   flex-direction: column;

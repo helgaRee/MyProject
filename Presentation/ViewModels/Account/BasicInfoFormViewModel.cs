@@ -7,33 +7,32 @@ public class BasicInfoFormViewModel
 
     public string UserId { get; set; } = null!;
 
+    [Required(ErrorMessage = "Du måste ange ett giltigt förnamn")]
     [DataType(DataType.Text)]
     [Display(Name = "First name", Prompt = "Skriv ditt förnamn")]
-    [Required(ErrorMessage = "Du måste ange ett giltigt förnamn")]
     public string FirstName { get; set; } = null!;
 
 
 
 
+    [Required(ErrorMessage = "Du måste fylla i ett giltigt efternamn")]
     [DataType(DataType.Text)]
     [Display(Name = "Last name", Prompt = "skriv in ditt efternamn")]
-    [Required(ErrorMessage = "Du måste fylla i ett giltigt efternamn")]
     public string LastName { get; set; } = null!;
 
 
 
 
+    [Required(ErrorMessage = "Du måste ange en giltig Email!")]
     [DataType(DataType.EmailAddress)]
     [Display(Name = "Email", Prompt = "Ange din emailaddress")]
-    [Required(ErrorMessage = "Du måste ange en giltig Email!")]
     public string Email { get; set; } = null!;
 
 
 
 
     [DataType(DataType.PhoneNumber)]
-    [Display(Name = "Phone (optional)", Prompt = "Ange ditt nummer!")]
-    [Required(ErrorMessage = "Du måste ange ett giltigt nummer! För fan")]
+    [Display(Name = "Phone (optional)", Prompt = "Ange ditt nummer (valfritt)")]
     public string? Phone { get; set; }
 
 
@@ -41,7 +40,7 @@ public class BasicInfoFormViewModel
 
 
     [DataType(DataType.MultilineText)]
-    [Display(Name = "Biography (optional)", Prompt = "Add a short bio...")]
+    [Display(Name = "Biography (optional)", Prompt = "Add a short bio... (valfritt)")]
     public string? Biography { get; set; }
 }
 

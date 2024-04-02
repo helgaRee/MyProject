@@ -27,93 +27,121 @@ public class AccountController : Controller
 
 
 
-    #region DETAILS
+    #region Details
     [HttpGet]
     [Route("/account/details")]
     public async Task<IActionResult> Details()
     {
-        //if (!_signInManager.IsSignedIn(User))
-        //    return RedirectToAction("SignIn", "Auth");
+        var viewModel = new AccountDetailsViewModel();
 
-        //var userEntity = await _userManager.GetUserAsync(User);
+        viewModel.ProfileInfo = await PopulateProfileInfoAsync();
+        viewModel.BasicInfoForm ??= await PopulateBasicInfoAsync();
+        viewModel.AddressInfoForm ??= await PopulateAddressInfoAsync();
 
-        var viewModel = new AccountDetailsViewModel
+        return View(viewModel);
+    }
+
+
+
+    [HttpPost]
+    [Route("/account/details")]
+    public async Task<IActionResult> Details(AccountDetailsViewModel viewModel)
+    {
+
+        if (viewModel.BasicInfoForm != null)
         {
-            BasicInfoForm = await PopulateBasicInfoFormAsync()
+            if (
+                viewModel.BasicInfoForm.FirstName != null &&
+                viewModel.BasicInfoForm.LastName != null &&
+                viewModel.BasicInfoForm.Email != null
+                )
+            {
+                var user = await _userManager.GetUserAsync(User);
 
-        };
+                //OM USER FINNS, UPPDATERA
+                if (user != null)
+                {
+                    user.FirstName = viewModel.BasicInfoForm.FirstName;
+                    user.LastName = viewModel.BasicInfoForm.LastName;
+                    user.Email = viewModel.BasicInfoForm.Email;
+                    user.PhoneNumber = viewModel.BasicInfoForm.Phone;
+                    user.Biography = viewModel.BasicInfoForm.Biography;
+
+                    var result = await _userManager.UpdateAsync(user);
+                    if (!result.Succeeded)
+                    {//felmeddelanden om input är inkrrekt
+                        ModelState.AddModelError("Incorrect values", "Something went wrong! Unable to save data.");
+                        ViewData["ErrorMessage"] = "Something went wrong! Unable to update basic information data.";
+                    }
+                }
+            }
+        }
+
+
+        //oavsettvad ska alltid profilinofmraitonen hämtas
+        viewModel.ProfileInfo = await PopulateProfileInfoAsync();
+        //Hämtar den NYA informationen och poppulerar den
+        viewModel.BasicInfoForm ??= await PopulateBasicInfoAsync();
+        viewModel.AddressInfoForm ??= await PopulateAddressInfoAsync();
+
         return View(viewModel);
 
-
-        //var viewModel = new AccountDetailsViewModel();
-
-        //viewModel.ProfileInfo = await PopulateProfileInfoAsync();
-        //viewModel.BasicInfoForm ??= await PopulateBasicInfoAsync();
-        //viewModel.AddressInfoForm ??= await PopulateAddressInfoAsync();
-
-        //return View(viewModel);
-
     }
+
     #endregion
 
 
-    #region BASICINFO
-
-    [HttpPost]
-    [Route("/account/details")]
-    public async Task<IActionResult> BasicInfo(AccountDetailsViewModel viewModel)
+    private async Task<ProfileInfoViewModel> PopulateProfileInfoAsync()
     {
-        if (viewModel.User != null)
-        {
-            var result = await _userManager.UpdateAsync(viewModel.User);
-            if (!result.Succeeded)
-            {
-                ModelState.AddModelError("Failed to save data", "Unable to save the data");
-                ViewData["ErrorMessage"] = "Unable to save the data";
-            }
-        }
-        return RedirectToAction("Details", "Account", viewModel);
-
-
-
-    }
-    #endregion
-
-    #region ADDRESSINFO
-
-    [HttpPost]
-    [Route("/account/details")]
-    public async Task<IActionResult> AddressInfo(AccountDetailsViewModel viewModel)
-    {
-        if (viewModel.User != null)
-        {
-            var result = await _userManager.UpdateAsync(viewModel.User);
-            if (!result.Succeeded)
-            {
-                ModelState.AddModelError("Failed to save data", "Unable to save the data");
-                ViewData["ErrorMessage"] = "Unable to save the data";
-            }
-        }
-        return RedirectToAction("Details", "Account", viewModel);
-
-    }
-    #endregion
-    private async Task<BasicInfoFormViewModel> PopulateBasicInfoFormAsync()
-    {
+        //HÄMTAR ANVÄNDARINFORMATIONEN BASERAT PÅ CLAIMS
         var user = await _userManager.GetUserAsync(User);
+        //kontrollera om null först
+        if (user != null)
+        {
+            return new ProfileInfoViewModel
+            {
+                FirstName = user!.FirstName,
+                LastName = user.LastName,
+                Email = user.Email!,
+                //bilden är hårdkådad nu, finns ej i db
+            };
+
+        }
+        return null!;
+    }
+
+
+    //metod somreturnerar information ur basicinfoform. Gör att information om användaren hämtas till Details-sidan.
+    //returnerar en AccountDetailsViewModel
+    private async Task<BasicInfoFormViewModel> PopulateBasicInfoAsync()
+    {
+        //HÄMTAR ANVÄNDARINFORMATIONEN BASERAT PÅ CLAIMS
+        var user = await _userManager.GetUserAsync(User);
+
         if (user != null)
         {
             return new BasicInfoFormViewModel
             {
-                UserId = user.Id,
+                UserId = user!.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email!,
-                Phone = user.Phone,
                 Biography = user.Biography,
+                Phone = user.PhoneNumber,
             };
         }
-        return null!;
+        else
+        {
+            // Hantera fall där användaren är null (t.ex. logga fel eller returnera en tom modell)
+            // Här returnerar jag en tom modell som exempel, men du kan ändra detta efter behov
+            return new BasicInfoFormViewModel();
+        }
+    }
+
+
+    private async Task<AddressInfoFormViewModel> PopulateAddressInfoAsync()
+    {
+        //Returnerar en tom model
+        return new AddressInfoFormViewModel();
     }
 }
-
