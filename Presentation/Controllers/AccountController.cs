@@ -15,14 +15,18 @@ public class AccountController : Controller
     private readonly SignInManager<UserEntity> _signInManager;
     private readonly UserManager<UserEntity> _userManager;
     private readonly AccountService _accountService;
+    private readonly AddressService _addressService;
 
-
-    public AccountController(SignInManager<UserEntity> signInManager, UserManager<UserEntity> userManager, AccountService accountService = null)
+    public AccountController(SignInManager<UserEntity> signInManager, UserManager<UserEntity> userManager, AccountService accountService, AddressService addressService)
     {
         _signInManager = signInManager;
         _userManager = userManager;
         _accountService = accountService;
+        _addressService = addressService;
     }
+
+
+
 
 
 
@@ -47,7 +51,10 @@ public class AccountController : Controller
     [Route("/account/details")]
     public async Task<IActionResult> Details(AccountDetailsViewModel viewModel)
     {
-
+        if (!ModelState.IsValid)
+        {
+            return View(viewModel);
+        }
         if (viewModel.BasicInfoForm != null)
         {
             if (
@@ -76,6 +83,70 @@ public class AccountController : Controller
                 }
             }
         }
+
+        //UPPDATERA ADDRESSINFO
+
+        if (viewModel.AddressInfoForm != null)
+        {
+
+
+            if (viewModel.AddressInfoForm.AddressLine_1 != null && viewModel.AddressInfoForm.AddressLine_2 != null && viewModel.AddressInfoForm.PostalCode != null && viewModel.AddressInfoForm.City != null)
+            {
+
+                var user = await _userManager.GetUserAsync(User);
+
+                if (user != null)
+                {
+                    var address = await _addressService.GetAddressAsync(user.Id);
+                    //om addressen inte är null, uppdatera
+                    if (address != null)
+                    {
+                        address.AddressLine1 = viewModel.AddressInfoForm.AddressLine_1;
+                        address.AddressLine2 = viewModel.AddressInfoForm.AddressLine_2;
+                        address.PostalCode = viewModel.AddressInfoForm.PostalCode;
+                        address.City = viewModel.AddressInfoForm.City;
+
+                        var updatedAddress = await _addressService.UpdateAddressAsync(address);
+                        if (!updatedAddress)
+                        {
+                            ModelState.AddModelError("Ogiltiga värden", "Något gick fel!");
+                            ViewData["ErrorMessage"] = "Något gick fel! Det gick inte att uppdatera addressinfo, detta är ur 'ViewData'";
+                        }
+                    }
+                    //om addressen ÄR null, SKAPA en ny
+                    else
+                    {
+                        address = new AddressEntity
+                        {
+                            Users.Id = user.Id,
+                            AddressLine1 = viewModel.AddressInfoForm.AddressLine_1,
+                            AddressLine2 = viewModel.AddressInfoForm.AddressLine_2,
+                            PostalCode = viewModel.AddressInfoForm.PostalCode,
+                            City = viewModel.AddressInfoForm.City,
+
+                        };
+
+                        var newAddress = await _addressService.GetAddressAsync(address);
+                        if (!newAddress)
+                        {
+                            ModelState.AddModelError("Ogiltiga värden", "Något gick fel!");
+                            ViewData["ErrorMessage"] = "Något gick fel! Det gick inte att uppdatera addressinfo, detta är ur 'ViewData'";
+                        }
+                    }
+                }
+
+
+
+                var result = await _userManager.UpdateAsync(user!);
+                if (!result.Succeeded)
+                {
+                    //skriv ut errors
+                    ModelState.AddModelError("Ogiltiga värden", "Något gick fel!");
+                    ViewData["ErrorMessage"] = "Något gick fel! Det gick inte att uppdatera, detta är ur 'ViewData'";
+                }
+            }
+        }
+
 
 
         //oavsettvad ska alltid profilinofmraitonen hämtas
@@ -141,6 +212,7 @@ public class AccountController : Controller
 
     private async Task<AddressInfoFormViewModel> PopulateAddressInfoAsync()
     {
+
         //Returnerar en tom model
         return new AddressInfoFormViewModel();
     }

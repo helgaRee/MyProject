@@ -5,6 +5,7 @@ namespace Infrastructure.Entities
 {
     public class UserEntity : IdentityUser
     {
+
         [ProtectedPersonalData]
         public string FirstName { get; set; } = null!;
         [ProtectedPersonalData]
