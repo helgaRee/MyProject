@@ -9,6 +9,7 @@ public class AccountDetailsViewModel
     public UserEntity User { get; set; } = null!;
 
     public AddressEntity Address { get; set; } = null!;
+    public AddressEntity AddressLine1 { get; set; } = null!;
 
     public AddressInfoFormViewModel? AddressInfoForm { get; set; } = null!;
 

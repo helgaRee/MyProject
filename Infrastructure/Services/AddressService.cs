@@ -12,6 +12,15 @@ public class AddressService(DataContext context)
 
 
 
+    public async Task<AddressEntity> GetAddressAsync(int? id)
+    {
+        var addressEntity = await _context.Addresses.FirstOrDefaultAsync(x => x.Id == id);
+
+        return addressEntity!;
+
+
+    }
+
     public async Task<AddressEntity> GetAddressAsync(AddressEntity entity)
     {
         var addressEntity = await _context.Addresses.FirstOrDefaultAsync(x => x.Id == entity.Id);

@@ -83,7 +83,7 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserMana
         {
 
 
-            if (viewModel.AddressInfoForm.AddressLine_1 != null && viewModel.AddressInfoForm.AddressLine_2 != null && viewModel.AddressInfoForm.PostalCode != null && viewModel.AddressInfoForm.City != null)
+            if (viewModel.AddressInfoForm.AddressLine_1 != null && viewModel.AddressInfoForm.PostalCode != null && viewModel.AddressInfoForm.City != null)
             {
                 // Hämtar den aktuella inloggade användaren
                 var user = await _userManager.GetUserAsync(User);
@@ -91,10 +91,12 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserMana
 
 
                 //kontrollerar om anv finns
-                if (user != null && user.AddressId.HasValue)
+                if (user != null)
                 {
+
                     //hämta användarens address ???
                     var address = await _addressService.GetAddressAsync(user.AddressId);
+                    //var address = await _addressService.GetAddressAsync(user.AddressId.Value);
                     //om addressen inte är null, uppdatera
                     if (address != null)
                     {
@@ -111,11 +113,11 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserMana
                         }
                     }
                     //om addressen ÄR null, SKAPA en ny
-                    else
+                    else if (address == null)
                     {
+
                         address = new AddressEntity
                         {
-                            Id = ,
                             AddressLine1 = viewModel.AddressInfoForm.AddressLine_1,
                             AddressLine2 = viewModel.AddressInfoForm.AddressLine_2,
                             PostalCode = viewModel.AddressInfoForm.PostalCode,
@@ -123,12 +125,14 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserMana
 
                         };
 
-                        var newAddress = await _addressService.GetAddressAsync(address);
+                        var newAddress = await _addressService.CreateAddressAsync(address);
                         if (!newAddress)
                         {
                             ModelState.AddModelError("Ogiltiga värden", "Något gick fel!");
                             ViewData["ErrorMessage"] = "Något gick fel! Det gick inte att uppdatera addressinfo, detta är ur 'ViewData'";
                         }
+                    }
+                    {
                     }
                 }
 
