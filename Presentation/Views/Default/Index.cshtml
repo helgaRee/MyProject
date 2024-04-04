@@ -1,5 +1,21 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@inject FeatureService featureService
+@model DefaultIndexViewModel
+
 @{
+    ViewData["Title"] = "Home";
+
+
 }
+@*  @await Html.PartialAsync("~/Views/Shared/Partials/_FeaturesPartial.cshtml") *@
+
+<Partial name="~/Views/Shared/Partials/_ShowcasePartial.cshtml", Model.Showcase />
+
+
+
+
+<Partial name="~/Views/Shared/Partials/_FeaturesPartial.cshtml" />
+<Partial name="~/Views/Shared/Partials/_DashboardPartial.cshtml" />
+<Partial name="~/Views/Shared/Partials/_DownloadAppPartial.cshtml" />
+<Partial name="~/Views/Shared/Partials/_WorkToolsPartial.cshtml" />
+<Partial name="~/Views/Shared/Partials/_NewslettersPartial.cshtml" />
+<Partial name="~/Views/Shared/Partials/_ShowcasePartial.cshtml" />

@@ -1,0 +1,49 @@
+﻿@model ShowcaseViewModel
+
+@{
+    ViewData["Title"] = "";
+}
+
+<section id="@Model?.Id" class="showcase">
+    <!-- Lägg till null-check för Model här -->
+
+
+    <div class="container">
+        @if (Model?.ShowcaseImage != null)
+        {
+            <img src="@Model.ShowcaseImage.ImageUrl" alt="@Model.ShowcaseImage.AltText" class="background-image">
+        }
+        <div class="content">
+            @if (!string.IsNullOrEmpty(Model?.Title))
+            {
+                <h1>@Model.Title</h1>
+            }
+            @if (!string.IsNullOrEmpty(Model?.Text))
+            {
+                <p>@Model.Text</p>
+            }
+            @if (Model?.Link != null)
+            {
+                <a asp-controller="@Model.Link.ControllerName" asp-action="@Model.Link.ActionName" class="btn-theme-s btn-short">@Model.Link.Text</a>
+            }
+            <div class="brands-wrapper">
+                @if (!string.IsNullOrEmpty(Model?.BrandsText))
+                {
+                    <h6>@Model.BrandsText</h6>
+                }
+                <div class="brands">
+                    @if (Model?.Brands != null)
+                    {
+                        foreach (var brand in Model.Brands)
+                        {
+                            if (brand != null && !string.IsNullOrEmpty(brand.ImageUrl))
+                            {
+                                <img src="@brand.ImageUrl" alt="@brand.AltText">
+                            }
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

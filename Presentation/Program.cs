@@ -1,6 +1,8 @@
 using Infrastructure.Contexts;
 using Infrastructure.Entities;
 using Infrastructure.Helpers.Middlewares;
+using Infrastructure.Repositories;
+using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +11,13 @@ builder.Services.AddControllersWithViews();
 
 
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
+
+
+
+
+
+
+
 
 //IDENTITY
 builder.Services.AddDefaultIdentity<UserEntity>(x =>
@@ -32,6 +41,26 @@ builder.Services.ConfigureApplicationCookie(x =>
 
 
 });
+
+
+
+
+// Register services och repositories. Alla services och repos som anv datacintexten ska va scoped
+builder.Services.AddScoped<AddressService>();
+builder.Services.AddScoped<AccountService>();
+builder.Services.AddScoped<FeatureService>();
+
+
+
+
+
+builder.Services.AddScoped<AddressRepository>();
+builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<CourseRepository>();
+builder.Services.AddScoped<SubscribeRepository>();
+builder.Services.AddScoped<FeatureRepository>();
+builder.Services.AddScoped<FeatureItemRepository>();
+
 
 
 var app = builder.Build();

@@ -100,6 +100,7 @@ public class AuthController(UserManager<UserEntity> userManager, SignInManager<U
     [Route("/signout")]
     public new async Task<IActionResult> SignOut()
     {
+        //Tar bort cookie och claims-info vid utloggning
         await _signInManager.SignOutAsync();
         return RedirectToAction("Index", "Default");
 

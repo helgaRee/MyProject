@@ -12,9 +12,9 @@ public class AddressService(DataContext context)
 
 
 
-    public async Task<AddressEntity> GetAddressAsync(string UserId)
+    public async Task<AddressEntity> GetAddressAsync(AddressEntity entity)
     {
-        var addressEntity = await _context.Addresses.FirstOrDefaultAsync(x => x.UserId == UserId);
+        var addressEntity = await _context.Addresses.FirstOrDefaultAsync(x => x.Id == entity.Id);
 
         return addressEntity!;
 
@@ -22,20 +22,27 @@ public class AddressService(DataContext context)
     }
 
 
-    public async Task<AddressEntity> CreateAddressAsync(AddressEntity entity)
+    public async Task<bool> CreateAddressAsync(AddressEntity entity)
     {
         _context.Addresses.Add(entity);
         await _context.SaveChangesAsync();
-        return entity;
+        return true;
     }
 
 
     public async Task<bool> UpdateAddressAsync(AddressEntity entity)
     {
-        var existingAddress = await _context.Addresses.FirstOrDefaultAsync(x => x.UserId == entity.UserId);
-        _context.Addresses.Add(entity);
-        await _context.SaveChangesAsync();
-        return true;
+        var existingAddress = await _context.Addresses.FirstOrDefaultAsync(x => x.Id == entity.Id);
+
+        if (existingAddress != null)
+        {
+            _context.Entry(existingAddress).CurrentValues.SetValues(entity);
+            await _context.SaveChangesAsync();
+            return true;
+
+        }
+
+        return false;
     }
 
 
